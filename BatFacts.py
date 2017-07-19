@@ -29,9 +29,13 @@ def message(facts,carriers,msg_from):
 	for fact in facts[1:]: 
 		msg=intro+fact
 		print(fact)
-		if len(msg)>130:        
-			session.sendmail(msg_from, msg_to, msg[:130])
-			session.sendmail(msg_from, msg_to, msg[130:])
+		if len(msg)>130:  
+			for i in range(129,0,-1):
+                		if msg[i]==' ':
+                    			sep=i
+                   			break
+			session.sendmail(msg_from, msg_to, msg[:sep])
+			session.sendmail(msg_from, msg_to, msg[sep+1:])
 		else:
 			session.sendmail(msg_from, msg_to, msg)
 		if intervalType=='r':
